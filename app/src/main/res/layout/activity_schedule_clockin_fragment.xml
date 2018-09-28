@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/clockinview"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#8a070d">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="You are not clocked in"
+            android:textColor="@android:color/white"
+            android:textScaleX="0.85"
+            android:textSize="18sp"
+            app:fontFamily="@font/lato_bold" />
+
+        <Button
+            android:id="@+id/clockinButton"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/schedule_clockin_button"
+            android:freezesText="false"
+            android:text="Clock In Now"
+            android:textAllCaps="false"
+            android:textColor="#C70037"
+            android:textIsSelectable="false"
+            android:textScaleX="0.9"
+            android:textSize="17sp"
+            app:fontFamily="@font/lato_bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/date"
+        android:layout_below="@+id/clockinview"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#E8E8E8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="THURSDAY, JUNE 1"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="17sp"
+            app:fontFamily="@font/lato_bold" />
+
+
+    </RelativeLayout>
+
+    <com.mindorks.placeholderview.ExpandablePlaceHolderView
+        android:id="@+id/expandableView"
+        android:layout_below="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+
+</RelativeLayout>
