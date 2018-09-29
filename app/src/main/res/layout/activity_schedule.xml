@@ -4,19 +4,104 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@android:color/white">
 
-    <fragment android:name="jeff.com.rubyridedriver.ScheduleFragment"
-        android:id="@+id/schedule_fragment"
+    <LinearLayout
+        android:id="@+id/topView"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content">
 
-        />
+        <RelativeLayout
+            android:id="@+id/clockinView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#8a070d">
 
-    <fragment android:name="jeff.com.rubyridedriver.ClockInFragment"
-        android:id="@+id/clockin_fragment"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="32dp"
+                android:text="You are not clocked in"
+                android:textColor="@android:color/white"
+                android:textScaleX="0.85"
+                android:textSize="16sp"
+                android:gravity="center"
+                app:fontFamily="@font/lato_bold" />
+
+            <Button
+                android:id="@+id/clockinButton"
+                android:layout_width="143dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/schedule_clockin_button"
+                android:freezesText="false"
+                android:text="Clock In Now"
+                android:textAllCaps="false"
+                android:textColor="#C70037"
+                android:textIsSelectable="false"
+                android:textScaleX="0.9"
+                android:textSize="16sp"
+                app:fontFamily="@font/lato_bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/dateView"
+            android:layout_below="@+id/clockinView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#E8E8E8">
+
+            <ImageView
+                android:id="@+id/calendar_icon"
+                android:layout_marginLeft="20dp"
+                android:layout_width="13dp"
+                android:layout_height="14dp"
+                android:src="@drawable/calendar_icon"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/calendar_icon"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="THURSDAY, JUNE 1"
+                android:textSize="14sp"
+                app:fontFamily="@font/lato_bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#d9d9d9"
+                android:layout_alignParentBottom="true"/>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+    <ScrollView
+        android:layout_below="@+id/topView"
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/contentView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>
