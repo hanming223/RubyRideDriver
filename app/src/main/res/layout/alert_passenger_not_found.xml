@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="320dp"
+    android:background="@drawable/alert_notfound_frame">
+
+    <ImageView
+        android:id="@+id/closeButton"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/cross_icon"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_bold"
+                android:text="Please tell us why the customer\n wasn't there"
+                android:textColor="#242b38"
+                android:textSize="16sp"
+                android:layout_centerInParent="true"
+                android:textAlignment="center"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/cancelLayout"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/cancelTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:text="Passenger canceled the trip"
+                android:textColor="#242b38"
+                android:textSize="15sp"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c2c2c2"
+                android:layout_alignParentTop="true"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c2c2c2"
+                android:layout_alignParentBottom="true"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/wasNotThereLayout"
+            android:layout_width="match_parent"
+            android:layout_height="53dp">
+
+            <TextView
+                android:id="@+id/wasNotThereTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:text="Passenger wasn't there"
+                android:textColor="#242b38"
+                android:textSize="15sp"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c2c2c2"
+                android:layout_alignParentBottom="true"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/wasLateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="53dp">
+
+            <TextView
+                android:id="@+id/wasLateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:text="Passenger was late"
+                android:textColor="#242b38"
+                android:textSize="15sp"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#c2c2c2"
+                android:layout_alignParentBottom="true"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true">
+
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="120dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/passenger_notfound_cancel"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:textColor="#9DA2B9"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/confirmButton"
+                    android:layout_width="120dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/passenger_notfound_confirm"
+                    android:text="Confirm"
+                    android:textAllCaps="false"
+                    android:textColor="#3A8CD3"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="20dp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

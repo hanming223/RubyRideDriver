@@ -191,7 +191,7 @@
             android:textSize="14sp" />
 
         <RelativeLayout
-            android:id="@+id/bottomView"
+            android:id="@+id/startEndButtonView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp">
@@ -204,9 +204,112 @@
                 android:text="START PICK UP"
                 android:textColor="#51d792"
                 android:textSize="14sp"
-                android:fontFamily="@font/lato"/>
+                android:fontFamily="@font/lato"
+                />
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/callOnBoardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:id="@+id/passengerCallButtonView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/passengerCallButton"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/green_phone_icon"
+
+                        />
+
+                    <TextView
+                        android:layout_below="@+id/passengerCallButton"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="Call Passenger"
+                        android:textColor="#68d385"
+                        android:textSize="15sp"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/passengerNotFoundButtonView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible">
+
+                    <ImageButton
+                        android:id="@+id/passengerNotFoundButton"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/red_profile_icon"
+                        android:scaleType="fitXY"/>
+
+                    <TextView
+                        android:layout_below="@+id/passengerNotFoundButton"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="Passenger was not found"
+                        android:textColor="#d11a45"
+                        android:textSize="15sp"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="center"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/passengerOnBoardButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/blue_car_icon" />
+
+                <TextView
+                    android:layout_below="@+id/passengerOnBoardButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Passenger On Board"
+                    android:textColor="#3a8cd3"
+                    android:textSize="15sp"
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"/>
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
 
 
     </LinearLayout>

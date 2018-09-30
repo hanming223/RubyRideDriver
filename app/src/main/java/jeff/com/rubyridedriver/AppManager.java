@@ -11,7 +11,9 @@ public class AppManager  {
 
     private static AppManager INSTANCE = null;
 
-    // other instance variables can be here
+
+    Boolean isClockedIn = false;
+
 
     private AppManager() {};
 

@@ -53,7 +53,7 @@ public class ScheduleActivity extends AppCompatActivity  {
 
                 topView.setVisibility(View.GONE);
 
-                onClockIn();
+                onClockInButtonClicked();
 
             }
         });
@@ -78,7 +78,7 @@ public class ScheduleActivity extends AppCompatActivity  {
 
             taskArray.add(task);
 
-            TaskView taskView = new TaskView(this);
+            TaskView taskView = new TaskView(this, task);
             taskView.setName(task.name);
             taskView.myIndex = i;
             contentView.addView(taskView);
@@ -88,9 +88,16 @@ public class ScheduleActivity extends AppCompatActivity  {
 
     }
 
-    public void onClockIn(){
+    public void goToNextTask(){
 
-        taskViewArray.get(0).bottomView.setVisibility(View.VISIBLE);
+        activeTaskIndex += 1;
+        
+
+    }
+
+    public void onClockInButtonClicked(){
+
+        taskViewArray.get(0).startEndButtonView.setVisibility(View.VISIBLE);
         AppManager.getInstance().expand(taskViewArray.get(0).conetentView);
 
         taskViewArray.get(0).headerBackground.setVisibility(View.GONE);

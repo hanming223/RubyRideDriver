@@ -1,42 +1,55 @@
 package jeff.com.rubyridedriver;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
+import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-public class TaskView extends RelativeLayout {
+public class TaskView extends RelativeLayout{
 
     private ImageView photoImageView;
     private TextView nameTextView;
 
     public RelativeLayout headerView;
     public LinearLayout conetentView;
-    public RelativeLayout bottomView;
     public RelativeLayout headerBackground;
+    public RelativeLayout startEndButtonView;
+    public LinearLayout callOnBoardView;
+
+    public ImageButton passengerCallButton, passengerOnBoardButton, passengerNotFoundButton;
+    public RelativeLayout passengerNotFoundButtonView, passengerCallButtonView;
 
     public Button startEndButton;
 
     public Integer myIndex;
 
     Context mContext;
+    TaskModel mTask;
 
-    public static final int START_PICKUP = 100;
-    public static final int ARRIVED_PICKUP = 101;
+//    public static final int START_PICKUP = 100;
+//    public static final int ARRIVED_PICKUP = 101;
 
 
-    public TaskView(Context context) {
+    public TaskView(Context context, TaskModel task) {
 
         super(context);
 
         mContext = context;
+        mTask = task;
 
         init();
     }
@@ -50,45 +63,75 @@ public class TaskView extends RelativeLayout {
 
         headerView = (RelativeLayout)findViewById(R.id.headerView);
         conetentView = (LinearLayout)findViewById(R.id.contentView);
-        bottomView = (RelativeLayout)findViewById(R.id.bottomView);
         headerBackground = (RelativeLayout)findViewById(R.id.headerBackground);
+        startEndButtonView = (RelativeLayout)findViewById(R.id.startEndButtonView);
+        callOnBoardView = (LinearLayout)findViewById(R.id.callOnBoardView);
 
         startEndButton = (Button)findViewById(R.id.startEndButton);
 
+        passengerCallButton = (ImageButton) findViewById(R.id.passengerCallButton);
+        passengerOnBoardButton = (ImageButton) findViewById(R.id.passengerOnBoardButton);
+        passengerNotFoundButton = (ImageButton) findViewById(R.id.passengerNotFoundButton);
+        passengerNotFoundButtonView = (RelativeLayout) findViewById(R.id.passengerNotFoundButtonView);
+        passengerCallButtonView = (RelativeLayout) findViewById(R.id.passengerCallButtonView);
+
         conetentView.setVisibility(View.GONE);
-        bottomView.setVisibility(View.GONE);
+        startEndButtonView.setVisibility(View.GONE);
+        callOnBoardView.setVisibility(View.GONE);
+
 
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                expand();
+                expandContent();
 
             }
         });
-
 
 
         startEndButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.d("xxxx", startEndButton.getText().toString());
                 if (startEndButton.getText().toString().equals("START PICK UP")){
                     startEndButton.setText("ARRIVED AT PICK UP");
                 }else {
-
+                    startEndButtonView.setVisibility(View.GONE);
+                    callOnBoardView.setVisibility(View.VISIBLE);
                 }
+
+            }
+        });
+
+        passengerCallButton.setOnClickListener( new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                passengerCallButtonView.setVisibility(View.INVISIBLE);
+                passengerNotFoundButtonView.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        passengerNotFoundButton.setOnClickListener( new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                showPassengerNotFoundDialog();
 
             }
         });
 
     }
 
-    public void expand(){
+    public void expandContent(){
 
         if (conetentView.getVisibility() == View.GONE){
             AppManager.getInstance().expand(conetentView);
+            headerBackground.setVisibility(View.GONE);
         }else{
             AppManager.getInstance().collapse(conetentView);
             headerBackground.setVisibility(View.VISIBLE);
@@ -96,9 +139,110 @@ public class TaskView extends RelativeLayout {
 
     }
 
+    public void showPassengerNotFoundDialog(){
+
+        final Dialog dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.alert_passenger_not_found);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        ImageView closeButton = (ImageView) dialog.findViewById(R.id.closeButton);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.hide();
+            }
+        });
+
+        final RelativeLayout cancelLayout = (RelativeLayout) dialog.findViewById(R.id.cancelLayout);
+        final TextView cancelTextView = (TextView) dialog.findViewById(R.id.cancelTextView);
+
+        final RelativeLayout wasNotThereLayout = (RelativeLayout) dialog.findViewById(R.id.wasNotThereLayout);
+        final TextView wasNotThereTextView = (TextView) dialog.findViewById(R.id.wasNotThereTextView);
+
+        final RelativeLayout wasLateLayout = (RelativeLayout) dialog.findViewById(R.id.wasLateLayout);
+        final TextView wasLateTextView = (TextView) dialog.findViewById(R.id.wasLateTextView);
+
+
+        cancelLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cancelLayout.setBackgroundColor(Color.parseColor("#3A8CD3"));
+                cancelTextView.setTextColor(Color.parseColor("#ffffff"));
+
+                wasNotThereLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                wasNotThereTextView.setTextColor(Color.parseColor("#242b38"));
+
+                wasLateLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                wasLateTextView.setTextColor(Color.parseColor("#242b38"));
+
+            }
+        });
+
+        wasNotThereLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cancelLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                cancelTextView.setTextColor(Color.parseColor("#242b38"));
+
+                wasNotThereLayout.setBackgroundColor(Color.parseColor("#3A8CD3"));
+                wasNotThereTextView.setTextColor(Color.parseColor("#ffffff"));
+
+                wasLateLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                wasLateTextView.setTextColor(Color.parseColor("#242b38"));
+
+            }
+        });
+
+        wasLateLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cancelLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                cancelTextView.setTextColor(Color.parseColor("#242b38"));
+
+                wasNotThereLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                wasNotThereTextView.setTextColor(Color.parseColor("#242b38"));
+
+                wasLateLayout.setBackgroundColor(Color.parseColor("#3A8CD3"));
+                wasLateTextView.setTextColor(Color.parseColor("#ffffff"));
+
+            }
+        });
+
+        final Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+        final Button confirmButton = (Button) dialog.findViewById(R.id.confirmButton);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.hide();
+
+            }
+        });
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.hide();
+
+                ScheduleActivity scheduleActivity = (ScheduleActivity)mContext;
+                scheduleActivity.goToNextTask();
+
+            }
+        });
+
+
+    }
+
 
     public void setName(String name){
         nameTextView.setText(name);
     }
+
 
 }
