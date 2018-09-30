@@ -1,11 +1,15 @@
 package jeff.com.rubyridedriver;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.LinkAddress;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +18,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.Button;
@@ -36,10 +42,13 @@ public class ScheduleActivity extends AppCompatActivity  {
 
     public Integer activeTaskIndex = 0;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //set status bar gradient color
+        setStatusBarGradiant(this);
+
         setContentView(R.layout.activity_schedule);
 
         //Set ActionBar theme
@@ -102,9 +111,11 @@ public class ScheduleActivity extends AppCompatActivity  {
         taskViewArray.get(activeTaskIndex).headerBackground.setVisibility(View.VISIBLE);
         AppManager.getInstance().collapse(taskViewArray.get(activeTaskIndex).conetentView);
 
+        //remove name clickable
+        taskViewArray.get(activeTaskIndex).nameTextView.setTextColor(Color.parseColor("#242B38"));
+        taskViewArray.get(activeTaskIndex).nameTextView.setOnClickListener(null);
 
         //check if shift is over
-
         if (activeTaskIndex >= (taskArray.size() - 1)){
             LinearLayout shiftOverLayout = (LinearLayout)findViewById(R.id.shiftOverLayout);
             shiftOverLayout.setVisibility(View.VISIBLE);
@@ -112,7 +123,6 @@ public class ScheduleActivity extends AppCompatActivity  {
         }
 
         //expand next task
-
         activeTaskIndex += 1;
 
         taskViewArray.get(activeTaskIndex).startEndButtonView.setVisibility(View.VISIBLE);
@@ -126,16 +136,20 @@ public class ScheduleActivity extends AppCompatActivity  {
         AppManager.getInstance().expand(taskViewArray.get(activeTaskIndex).conetentView);
 
 
-        //remove pre-previous task.
-//        if (activeTaskIndex - 2 >= 0){
-//
-//            LinearLayout contentView = findViewById(R.id.contentView);
-//            contentView.removeView(taskViewArray.get(activeTaskIndex - 2));
-//
-//            taskViewArray.remove(activeTaskIndex - 2);
-//            taskArray.remove(activeTaskIndex - 2);
-//
-//        }
+        //make name clickable
+        if (taskArray.get(activeTaskIndex).requestType == 0){
+
+            taskViewArray.get(activeTaskIndex).nameTextView.setTextColor(Color.parseColor("#3A8CD3"));
+            taskViewArray.get(activeTaskIndex).nameTextView.setOnClickListener( new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    callPassengerConfirmationDialog();
+
+                }
+            });
+        }
 
     }
 
@@ -172,23 +186,20 @@ public class ScheduleActivity extends AppCompatActivity  {
 
         //make name clickable
 
-        for (int i = 0; i <taskArray.size(); i++){
+        if (taskArray.get(0).requestType == 0){
 
-            if (taskArray.get(i).requestType == 0){
+            taskViewArray.get(0).nameTextView.setTextColor(Color.parseColor("#3A8CD3"));
+            taskViewArray.get(0).nameTextView.setOnClickListener( new View.OnClickListener() {
 
-                taskViewArray.get(i).nameTextView.setTextColor(Color.parseColor("#3A8CD3"));
-                taskViewArray.get(i).nameTextView.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                    @Override
-                    public void onClick(View v) {
+                    callPassengerConfirmationDialog();
 
-                        callPassengerConfirmationDialog();
-
-                    }
-                });
-            }
-
+                }
+            });
         }
+
 
     }
 
@@ -227,6 +238,19 @@ public class ScheduleActivity extends AppCompatActivity  {
         });
 
 
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void setStatusBarGradiant(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            Drawable background = activity.getResources().getDrawable(R.drawable.action_bar_bg);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
+            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
+            window.setBackgroundDrawable(background);
+        }
     }
 
 }

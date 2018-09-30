@@ -232,8 +232,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/green_phone_icon"
-
+                        android:background="@drawable/passenger_call_button"
                         />
 
                     <TextView
@@ -241,7 +240,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="@font/lato_bold"
+                        android:fontFamily="@font/lato"
                         android:text="Call Passenger"
                         android:textColor="#68d385"
                         android:textSize="15sp"
@@ -261,15 +260,14 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/red_profile_icon"
-                        android:scaleType="fitXY"/>
+                        android:background="@drawable/passenger_notfound_button" />
 
                     <TextView
                         android:layout_below="@+id/passengerNotFoundButton"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="@font/lato_bold"
+                        android:fontFamily="@font/lato"
                         android:text="Passenger was not found"
                         android:textColor="#d11a45"
                         android:textSize="15sp"
@@ -291,14 +289,14 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/blue_car_icon" />
+                    android:background="@drawable/passenger_onboard_button" />
 
                 <TextView
                     android:layout_below="@+id/passengerOnBoardButton"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="@font/lato_bold"
+                    android:fontFamily="@font/lato"
                     android:text="Passenger On Board"
                     android:textColor="#3a8cd3"
                     android:textSize="15sp"
