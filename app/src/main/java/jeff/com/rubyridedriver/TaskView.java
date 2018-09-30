@@ -2,9 +2,11 @@ package jeff.com.rubyridedriver;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,11 +20,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.Locale;
+
 
 public class TaskView extends RelativeLayout{
 
-    private ImageView photoImageView;
-    private TextView nameTextView;
+    public ImageView photoImageView;
+    public TextView nameTextView;
+    public TextView addressTextView;
 
     public RelativeLayout headerView;
     public LinearLayout conetentView;
@@ -39,9 +46,6 @@ public class TaskView extends RelativeLayout{
 
     Context mContext;
     TaskModel mTask;
-
-//    public static final int START_PICKUP = 100;
-//    public static final int ARRIVED_PICKUP = 101;
 
 
     public TaskView(Context context, TaskModel task) {
@@ -60,6 +64,7 @@ public class TaskView extends RelativeLayout{
 
         photoImageView = (ImageView) findViewById(R.id.photo);
         nameTextView = (TextView) findViewById(R.id.name);
+        addressTextView = (TextView) findViewById(R.id.addressTextView);
 
         headerView = (RelativeLayout)findViewById(R.id.headerView);
         conetentView = (LinearLayout)findViewById(R.id.contentView);
@@ -75,9 +80,17 @@ public class TaskView extends RelativeLayout{
         passengerNotFoundButtonView = (RelativeLayout) findViewById(R.id.passengerNotFoundButtonView);
         passengerCallButtonView = (RelativeLayout) findViewById(R.id.passengerCallButtonView);
 
+
         conetentView.setVisibility(View.GONE);
         startEndButtonView.setVisibility(View.GONE);
         callOnBoardView.setVisibility(View.GONE);
+
+        TextView taskTypeTextView = (TextView)findViewById(R.id.taskTypeTextView);
+        if (mTask.requestType == 0){
+            taskTypeTextView.setText("PICK UP");
+        }else{
+            taskTypeTextView.setText("DROP OFF");
+        }
 
 
         headerView.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +109,21 @@ public class TaskView extends RelativeLayout{
 
                 if (startEndButton.getText().toString().equals("START PICK UP")){
                     startEndButton.setText("ARRIVED AT PICK UP");
-                }else {
+
+                    //make name unclickable
+
+                    nameTextView.setTextColor(Color.parseColor("#242B38"));
+                    nameTextView.setOnClickListener(null);
+
+
+                }else if(startEndButton.getText().toString().equals("ARRIVED AT PICK UP")){
                     startEndButtonView.setVisibility(View.GONE);
                     callOnBoardView.setVisibility(View.VISIBLE);
+                }else if (startEndButton.getText().toString().equals("START DROP")){
+                    startEndButton.setText("END DROP OFF");
+                }else if (startEndButton.getText().toString().equals("END DROP OFF")){
+                    ScheduleActivity scheduleActivity = (ScheduleActivity)mContext;
+                    scheduleActivity.goToNextTask();
                 }
 
             }
@@ -125,16 +150,41 @@ public class TaskView extends RelativeLayout{
             }
         });
 
+
+        passengerOnBoardButton.setOnClickListener( new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                ScheduleActivity scheduleActivity = (ScheduleActivity)mContext;
+                scheduleActivity.goToNextTask();
+
+            }
+        });
+
+
+
     }
 
     public void expandContent(){
 
-        if (conetentView.getVisibility() == View.GONE){
-            AppManager.getInstance().expand(conetentView);
-            headerBackground.setVisibility(View.GONE);
+        if (AppManager.getInstance().isClockedIn == false) {
+
+            if (conetentView.getVisibility() == View.GONE) {
+                AppManager.getInstance().expand(conetentView);
+                headerBackground.setVisibility(View.GONE);
+            } else {
+                AppManager.getInstance().collapse(conetentView);
+                headerBackground.setVisibility(View.VISIBLE);
+            }
         }else{
-            AppManager.getInstance().collapse(conetentView);
-            headerBackground.setVisibility(View.VISIBLE);
+
+            ScheduleActivity scheduleActivity = (ScheduleActivity)mContext;
+            if (myIndex > scheduleActivity.activeTaskIndex){
+
+            }
+
+
         }
 
     }

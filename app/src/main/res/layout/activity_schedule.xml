@@ -94,10 +94,47 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:id="@+id/contentView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/contentView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/shiftOverLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="Your shift is over"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/lato_bold" />
+
+                <Button
+                    android:id="@+id/shiftOverButton"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/start_pickup_button"
+                    android:text="CLOCK OUT"
+                    android:textColor="#51d792"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/lato"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 

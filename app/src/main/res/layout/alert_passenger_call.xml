@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:background="@drawable/alert_notfound_frame">
+
+    <ImageView
+        android:id="@+id/closeButton"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/cross_icon"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/photo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/person"
+                app:civ_border_color="@android:color/darker_gray"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:layout_below="@+id/photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/lato_bold"
+                android:text="Briuan Flaherty"
+                android:textColor="#242b38"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="53dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true">
+
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="120dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/passenger_notfound_cancel"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:textColor="#9DA2B9"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/confirmButton"
+                    android:layout_width="120dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/passenger_notfound_confirm"
+                    android:text="CALL"
+                    android:textAllCaps="false"
+                    android:textColor="#3A8CD3"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="20dp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
