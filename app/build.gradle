@@ -32,4 +32,5 @@ dependencies {
     annotationProcessor 'com.mindorks.android:placeholderview-compiler:1.0.2'
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
 }
