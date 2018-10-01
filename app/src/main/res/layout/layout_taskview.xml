@@ -205,8 +205,7 @@
                 android:text="START PICK UP"
                 android:textColor="#51d792"
                 android:textSize="14sp"
-                android:fontFamily="@font/lato"
-                />
+                android:fontFamily="@font/lato"  />
 
         </RelativeLayout>
 
