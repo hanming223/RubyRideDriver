@@ -29,12 +29,12 @@
 
              >
 
-            <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/notification_icon"/>
+            <!--<ImageView-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:src="@drawable/notification_icon"/>-->
 
             <TextView
                 android:id="@+id/titleView"
@@ -76,6 +76,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemIconTint="@android:color/white"
         >
 
         <RelativeLayout

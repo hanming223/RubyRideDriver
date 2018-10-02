@@ -8,4 +8,6 @@
     <color name="action_bar_start_color">#E6214A</color>
     <color name="action_bar_end_color">#CD1D40</color>
 
+    <color name="menu_icon_color">#FFFFFF</color>
+
 </resources>

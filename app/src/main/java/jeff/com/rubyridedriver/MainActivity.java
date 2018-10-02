@@ -13,6 +13,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,9 +39,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements DrawerLayout.DrawerListener {
 
     DrawerLayout drawer;
+
+    Runnable mPendingRunnable;
+    Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,23 +65,25 @@ public class MainActivity extends AppCompatActivity  {
 //        setSupportActionBar(toolbar);
 
 
-//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-
-
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerToggle.setDrawerIndicatorEnabled(false);
-        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
-        mDrawerToggle.setHomeAsUpIndicator(R.drawable.menu_icon);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.menu_icon_color));
+
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+
+
+//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        mDrawerToggle.setDrawerIndicatorEnabled(false);
+//        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                drawer.openDrawer(GravityCompat.START);
+//            }
+//        });
+//        mDrawerToggle.setHomeAsUpIndicator(R.drawable.menu_icon);
 
 
 
@@ -107,21 +114,30 @@ public class MainActivity extends AppCompatActivity  {
                 TextView titleView = (TextView)findViewById(R.id.titleView);
                 titleView.setText("Your Schedule");
 
-                Fragment fragment = null;
-                Class fragmentClass;
-                fragmentClass = ScheduleFragment.class;
 
-
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
                 drawer.closeDrawers();
+
+                mPendingRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Fragment fragment = null;
+                        Class fragmentClass;
+                        fragmentClass = ScheduleFragment.class;
+
+
+                        try {
+                            fragment = (Fragment) fragmentClass.newInstance();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+                    }
+                };
 
 
             }
@@ -134,26 +150,34 @@ public class MainActivity extends AppCompatActivity  {
                 TextView titleView = (TextView)findViewById(R.id.titleView);
                 titleView.setText("Your Past Trips");
 
-                Fragment fragment = null;
-                Class fragmentClass;
-                fragmentClass = HistoryFragment.class;
-
-
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
                 drawer.closeDrawers();
 
+
+                mPendingRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Fragment fragment = null;
+                        Class fragmentClass;
+                        fragmentClass = HistoryFragment.class;
+
+
+                        try {
+                            fragment = (Fragment) fragmentClass.newInstance();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+                    }
+                };
 
             }
         });
 
+        mHandler = new Handler();
 
     }
 
@@ -163,4 +187,28 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
+    @Override
+    public void onDrawerSlide(@NonNull View view, float v) {
+
+    }
+
+    @Override
+    public void onDrawerOpened(@NonNull View view) {
+
+    }
+
+    @Override
+    public void onDrawerClosed(@NonNull View view) {
+
+        if (mPendingRunnable != null) {
+            mHandler.post(mPendingRunnable);
+            mPendingRunnable = null;
+        }
+
+    }
+
+    @Override
+    public void onDrawerStateChanged(int i) {
+
+    }
 }
