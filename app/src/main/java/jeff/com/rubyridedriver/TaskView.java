@@ -2,27 +2,16 @@ package jeff.com.rubyridedriver;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
-import android.net.Uri;
-import android.provider.ContactsContract;
-import android.util.Log;
-import android.view.MotionEvent;
+import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.Locale;
 
 
 public class TaskView extends RelativeLayout{
@@ -47,13 +36,15 @@ public class TaskView extends RelativeLayout{
     Context mContext;
     TaskModel mTask;
 
+    Fragment mFragment;
 
-    public TaskView(Context context, TaskModel task) {
+    public TaskView(Context context, Fragment fragment, TaskModel task) {
 
         super(context);
 
         mContext = context;
         mTask = task;
+        mFragment = fragment;
 
         init();
     }
@@ -122,8 +113,12 @@ public class TaskView extends RelativeLayout{
                 }else if (startEndButton.getText().toString().equals("START DROP")){
                     startEndButton.setText("END DROP OFF");
                 }else if (startEndButton.getText().toString().equals("END DROP OFF")){
-                    ScheduleActivity scheduleActivity = (ScheduleActivity)mContext;
-                    scheduleActivity.goToNextTask();
+                    MainActivity mainActivity = (MainActivity)mContext;
+
+                    if (mFragment instanceof ScheduleFragment) {
+                        ((ScheduleFragment) mFragment).goToNextTask();
+                    }
+
                 }
 
             }
@@ -157,8 +152,9 @@ public class TaskView extends RelativeLayout{
             @Override
             public void onClick(View v) {
 
-                ScheduleActivity scheduleActivity = (ScheduleActivity)mContext;
-                scheduleActivity.goToNextTask();
+                if (mFragment instanceof ScheduleFragment) {
+                    ((ScheduleFragment) mFragment).goToNextTask();
+                }
 
             }
         });
@@ -180,10 +176,10 @@ public class TaskView extends RelativeLayout{
             }
         }else{
 
-            ScheduleActivity scheduleActivity = (ScheduleActivity)mContext;
-            if (myIndex > scheduleActivity.activeTaskIndex){
-
-            }
+            MainActivity mainActivity = (MainActivity)mContext;
+//            if (myIndex > mScheduleFragment.activeTaskIndex){
+//
+//            }
 
 
         }
@@ -281,8 +277,9 @@ public class TaskView extends RelativeLayout{
 
                 dialog.hide();
 
-                ScheduleActivity scheduleActivity = (ScheduleActivity)mContext;
-                scheduleActivity.goToNextTask();
+                if (mFragment instanceof ScheduleFragment) {
+                    ((ScheduleFragment) mFragment).goToNextTask();
+                }
 
             }
         });

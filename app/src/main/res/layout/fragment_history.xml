@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <RelativeLayout
+        android:id="@+id/dateView"
+        android:layout_below="@+id/clockinView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#E8E8E8">
+
+        <ImageView
+            android:id="@+id/calendar_icon"
+            android:layout_marginLeft="20dp"
+            android:layout_width="13dp"
+            android:layout_height="14dp"
+            android:src="@drawable/calendar_icon"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/calendar_icon"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:text="THURSDAY, JUNE 1"
+            android:textSize="14sp"
+            android:fontFamily="@font/lato_bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#d9d9d9"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_below="@+id/dateView"
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/contentView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/shiftOverLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="Your shift is over"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/lato_bold" />
+
+                <Button
+                    android:id="@+id/shiftOverButton"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/start_pickup_button"
+                    android:text="CLOCK OUT"
+                    android:textColor="#51d792"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/lato"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
