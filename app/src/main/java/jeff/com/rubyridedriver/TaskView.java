@@ -13,9 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import jeff.com.rubyridedriver.utils.TripManager;
-import timber.log.Timber;
-
 
 public class TaskView extends RelativeLayout{
 
@@ -102,7 +99,6 @@ public class TaskView extends RelativeLayout{
             public void onClick(View v) {
 
                 if (startEndButton.getText().toString().equals("START PICK UP")){
-
                     startEndButton.setText("ARRIVED AT PICK UP");
 
                     //make name unclickable
@@ -110,28 +106,18 @@ public class TaskView extends RelativeLayout{
                     nameTextView.setTextColor(Color.parseColor("#242B38"));
                     nameTextView.setOnClickListener(null);
 
-                    Timber.i("acceptNewRideReqButton tapped");
-                    TripManager.sharedInstance().acceptNewPassengerRequest();
 
                 }else if(startEndButton.getText().toString().equals("ARRIVED AT PICK UP")){
-
                     startEndButtonView.setVisibility(View.GONE);
                     callOnBoardView.setVisibility(View.VISIBLE);
-
                 }else if (startEndButton.getText().toString().equals("START DROP")){
-
                     startEndButton.setText("END DROP OFF");
-
                 }else if (startEndButton.getText().toString().equals("END DROP OFF")){
-
                     MainActivity mainActivity = (MainActivity)mContext;
 
                     if (mFragment instanceof ScheduleFragment) {
                         ((ScheduleFragment) mFragment).goToNextTask();
                     }
-
-                    Timber.i("dropAPassengerButton tapped");
-                    TripManager.sharedInstance().dropAPassenger();
 
                 }
 
@@ -144,8 +130,8 @@ public class TaskView extends RelativeLayout{
             @Override
             public void onClick(View v) {
 
-            passengerCallButtonView.setVisibility(View.INVISIBLE);
-            passengerNotFoundButtonView.setVisibility(View.VISIBLE);
+                passengerCallButtonView.setVisibility(View.INVISIBLE);
+                passengerNotFoundButtonView.setVisibility(View.VISIBLE);
 
             }
         });
@@ -155,7 +141,7 @@ public class TaskView extends RelativeLayout{
             @Override
             public void onClick(View v) {
 
-            showPassengerNotFoundDialog();
+                showPassengerNotFoundDialog();
 
             }
         });
@@ -168,38 +154,36 @@ public class TaskView extends RelativeLayout{
 
                 if (mFragment instanceof ScheduleFragment) {
                     ((ScheduleFragment) mFragment).goToNextTask();
-
-                    Timber.i("pickupAPassengerButton tapped");
-                    TripManager.sharedInstance().pickupAPassenger();
                 }
 
             }
         });
 
+
+
     }
 
     public void expandContent(){
 
-        if ((mFragment instanceof ScheduleFragment) && (AppManager.getInstance().isClockedIn == false)){
+        if (AppManager.getInstance().isClockedIn == false) {
 
-            expandAction();
+            if (conetentView.getVisibility() == View.GONE) {
+                AppManager.getInstance().expand(conetentView);
+                headerBackground.setVisibility(View.GONE);
+            } else {
+                AppManager.getInstance().collapse(conetentView);
+                headerBackground.setVisibility(View.VISIBLE);
+            }
+        }else{
 
-        }else if ((mFragment instanceof HistoryFragment)){
+            MainActivity mainActivity = (MainActivity)mContext;
+//            if (myIndex > mScheduleFragment.activeTaskIndex){
+//
+//            }
 
-            expandAction();
 
         }
 
-    }
-
-    public void expandAction(){
-        if (conetentView.getVisibility() == View.GONE) {
-            AppManager.getInstance().expand(conetentView);
-            headerBackground.setVisibility(View.GONE);
-        } else {
-            AppManager.getInstance().collapse(conetentView);
-            headerBackground.setVisibility(View.VISIBLE);
-        }
     }
 
     public void showPassengerNotFoundDialog(){
