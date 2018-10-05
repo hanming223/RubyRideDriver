@@ -127,7 +127,7 @@
             <LinearLayout
                 android:id="@+id/secondRelative"
                 android:layout_below="@+id/firstRelative"
-                android:layout_above="@+id/thirdRelative"
+                android:layout_above="@+id/clockInOutLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/menu_background_2"
@@ -210,7 +210,7 @@
 
 
             <RelativeLayout
-                android:id="@id/thirdRelative"
+                android:id="@id/clockInOutLayout"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:background="@drawable/menu_background_3"

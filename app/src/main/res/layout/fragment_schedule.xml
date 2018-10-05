@@ -139,5 +139,46 @@
 
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/clockOutLayout"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/clockOutButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/clock_out_button"
+            />
+
+        <RelativeLayout
+            android:id="@+id/clockOutConfirmLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/clock_out_button_layout"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/clockOutConfirmButton"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="CLOCK OUT"
+                android:textSize="13sp"
+                android:textColor="#E6214A"
+                android:layout_marginLeft="8dp"
+                android:layout_alignParentLeft="true"
+                app:fontFamily="@font/lato_bold" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 
 </RelativeLayout>
