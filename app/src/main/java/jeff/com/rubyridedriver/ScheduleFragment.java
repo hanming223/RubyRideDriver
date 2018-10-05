@@ -121,6 +121,14 @@ public class ScheduleFragment extends Fragment {
 
                 onClockOutButtonClicked();
 
+                TripManager.State tripManagerState = TripManager.sharedInstance().getTripManagerState();
+                int passengersInCar = tripManagerState.getPassengersInCar();
+                int passengerWaitingForPickup = tripManagerState.getPassengersWaitingForPickup();
+                if (passengersInCar == 0 && passengerWaitingForPickup == 0){
+                    Timber.i("offDutyButton tapped");
+                    TripManager.sharedInstance().goOffDuty();
+                }
+
             }
         });
 

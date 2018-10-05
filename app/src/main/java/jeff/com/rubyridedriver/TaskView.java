@@ -110,6 +110,7 @@ public class TaskView extends RelativeLayout{
                     nameTextView.setTextColor(Color.parseColor("#242B38"));
                     nameTextView.setOnClickListener(null);
 
+
                     Timber.i("acceptNewRideReqButton tapped");
                     TripManager.sharedInstance().acceptNewPassengerRequest();
 
@@ -130,8 +131,12 @@ public class TaskView extends RelativeLayout{
                         ((ScheduleFragment) mFragment).goToNextTask();
                     }
 
-                    Timber.i("dropAPassengerButton tapped");
-                    TripManager.sharedInstance().dropAPassenger();
+                    TripManager.State tripManagerState = TripManager.sharedInstance().getTripManagerState();
+                    int passengersInCar = tripManagerState.getPassengersInCar();
+                    if (passengersInCar > 0){
+                        Timber.i("dropAPassengerButton tapped");
+                        TripManager.sharedInstance().dropAPassenger();
+                    }
 
                 }
 
@@ -155,7 +160,15 @@ public class TaskView extends RelativeLayout{
             @Override
             public void onClick(View v) {
 
-            showPassengerNotFoundDialog();
+                showPassengerNotFoundDialog();
+
+
+                TripManager.State tripManagerState = TripManager.sharedInstance().getTripManagerState();
+                int passengerWaitingForPickup = tripManagerState.getPassengersWaitingForPickup();
+                if (passengerWaitingForPickup > 0){
+                    Timber.i("cancelRequestButton tapped");
+                    TripManager.sharedInstance().cancelARequest();
+                }
 
             }
         });
@@ -169,8 +182,13 @@ public class TaskView extends RelativeLayout{
                 if (mFragment instanceof ScheduleFragment) {
                     ((ScheduleFragment) mFragment).goToNextTask();
 
-                    Timber.i("pickupAPassengerButton tapped");
-                    TripManager.sharedInstance().pickupAPassenger();
+                    TripManager.State tripManagerState = TripManager.sharedInstance().getTripManagerState();
+                    int passengerWaitingForPickup = tripManagerState.getPassengersWaitingForPickup();
+                    if (passengerWaitingForPickup > 0){
+                        Timber.i("pickupAPassengerButton tapped");
+                        TripManager.sharedInstance().pickupAPassenger();
+                    }
+
                 }
 
             }

@@ -199,8 +199,13 @@ public class MainActivity extends AppCompatActivity implements DrawerLayout.Draw
 
                 drawer.closeDrawers();
 
-                Timber.i("offDutyButton tapped");
-                TripManager.sharedInstance().goOffDuty();
+                TripManager.State tripManagerState = TripManager.sharedInstance().getTripManagerState();
+                int passengersInCar = tripManagerState.getPassengersInCar();
+                int passengerWaitingForPickup = tripManagerState.getPassengersWaitingForPickup();
+                if (passengersInCar == 0 && passengerWaitingForPickup == 0){
+                    Timber.i("offDutyButton tapped");
+                    TripManager.sharedInstance().goOffDuty();
+                }
 
             }
         });
